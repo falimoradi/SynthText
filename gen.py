@@ -44,10 +44,12 @@ def get_data():
       print()
       sys.stdout.flush()
       out_fname = 'data.tar.gz'
+      out_fname = 'data.zip'
       wget.download(DATA_URL,out=out_fname)
-      tar = tarfile.open(out_fname)
-      tar.extractall()
-      tar.close()
+      from zipfile import ZipFile
+      with ZipFile('data.zip', 'r') as zipObj:
+        # Extract all the contents of zip file in current directory
+        zipObj.extractall()
       os.remove(out_fname)
       colorprint(Color.BLUE,'\n\tdata saved at:'+DB_FNAME,bold=True)
       sys.stdout.flush()
